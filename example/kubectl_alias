@@ -1,0 +1,19 @@
+## SSS_CUSTOM_SNIPPET: kubectl_alias
+## Status: true
+export drc=--dry-run=client
+export drs=--dry-run=server
+export dr=--dry-run
+export oy=-oyaml
+export oj=-ojson
+
+function kubens() {
+    kubectl config set-context --current --namespace=$1
+}
+
+function kubectx() {
+    kubectl config use-context $1
+}
+
+function kubecomplete () {
+    source <(kubectl completion $1)
+}
