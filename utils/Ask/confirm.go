@@ -1,6 +1,10 @@
 package Ask
 
-import "github.com/AlecAivazis/survey/v2"
+import (
+	"github.com/AlecAivazis/survey/v2"
+	log "github.com/sirupsen/logrus"
+	"os"
+)
 
 const (
 	IsYourInfoCorrect  = "您填写的信息是否正确 (Is your info correct?)"
@@ -20,6 +24,10 @@ func ForSure(msg string) (name bool) {
 	prompt := &survey.Confirm{
 		Message: msg,
 	}
-	survey.AskOne(prompt, &name)
+	err := survey.AskOne(prompt, &name)
+	if err != nil {
+		log.Errorf("user confirm got error %v", err)
+		os.Exit(137)
+	}
 	return
 }

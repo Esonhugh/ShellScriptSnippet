@@ -1,6 +1,7 @@
 package TextEditorCall
 
 import (
+	"github.com/AlecAivazis/survey/v2"
 	log "github.com/sirupsen/logrus"
 	"os"
 	"os/exec"
@@ -44,4 +45,21 @@ func TextEdit(vi string) string {
 	}
 	log.Debugln("read file data from editor", readByte)
 	return string(readByte)
+}
+
+func TextEditSurvey(defaultData string) string {
+	q := &survey.Editor{
+		FileName:      "sss-Editing-*.sh",
+		Message:       "",
+		Default:       defaultData,
+		AppendDefault: true,
+		HideDefault:   true,
+	}
+	message := defaultData
+	err := survey.AskOne(q, &message)
+	if err != nil {
+		log.Errorf("Failed to get user input: %v \n", err)
+	}
+	log.Debugln("read file data from editor", message)
+	return message
 }

@@ -4,6 +4,7 @@ import (
 	cc "github.com/ivanpirog/coloredcobra"
 	"github.com/spf13/cobra"
 	"os"
+	"sss/core/cmd_impel"
 	"sss/utils/log"
 )
 
@@ -11,8 +12,11 @@ var RootCmd = &cobra.Command{
 	Use:   "sss",
 	Short: "ShellScriptSnippet(abbr.sss) is a kind of commandline tool for managing,sharing your self created shell script to others",
 	Long:  "#########################################\n#     _______.     _______.     _______.#\n#    /       |    /       |    /       |#\n#   |   (----`   |   (----`   |   (----`#\n#    \\   \\        \\   \\        \\   \\    #\n#.----)   |   .----)   |   .----)   |   #\n#|_______/    |_______/    |_______/    #\n#########################################",
-	PersistentPostRun: func(cmd *cobra.Command, args []string) {
+	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		log.Init()
+		if err := cmd_impel.InitDB(); err != nil {
+			os.Exit(-1)
+		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Help()
