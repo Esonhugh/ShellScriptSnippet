@@ -1,0 +1,71 @@
+## SSS_CUSTOM_SNIPPET: proxys
+## Status: true
+# easily change the shell proxys
+export ipOfClash="127.0.0.1"
+export portOfClash="7890"
+export protoOfClash="http"
+
+proxys(){
+    case "$1" in
+        h)
+            echo "                                    "
+            echo "==============usage================="
+            echo "$0 [command] [params]"
+            echo "=============command================"
+            echo "set url               set the url like http://127.0.0.1:7890"
+            echo "ip proxy_ip           import ip temply"
+            echo "port port_id          import port temply"
+            echo "mode protocol_header  like http socks socks5"
+            echo "loc                   import localhost "
+            echo "on                    open the cli proxy"
+            echo "off                   close the proxy"
+            echo "*                     show proxy & help"
+            echo "h/help                show help"
+            echo "===================================="
+        ;;
+        set)
+            export ClashURL="$2"
+            if [[ -n "${ClashURL}" ]]
+            then
+                export ipOfClash=$(echo $ClashURL|awk -F '://' '{print $2}'|awk -F ':' '{print $1}')
+                export portOfClash=$(echo $ClashURL|awk -F '://' '{print $2}'|awk -F ':' '{print $2}')
+                if [[ -z "${portOfClash}" ]]
+                then
+                    export portOfClash="80"
+                fi
+                export protoOfClash=$(echo $ClashURL|awk -F '://' '{print $1}')
+            fi
+        ;;
+        mode)
+            export protoOfClash="$2"
+        ;;
+        ip)
+            export ipOfClash="$2"
+        ;;
+        port)
+            export portOfClash="$2"
+        ;;
+        loc)
+            export protoOfClash="socks5"
+            export ipOfClash="127.0.0.1"
+            export portOfClash="7890"
+            $0 on
+        ;;
+        on)
+            export https_proxy=$protoOfClash://$ipOfClash:$portOfClash \
+            http_proxy=$protoOfClash://$ipOfClash:$portOfClash \
+            all_proxy=$protoOfClash://$ipOfClash:$portOfClash && \
+            echo 'export clash complete' && $0 show
+        ;;
+        off)
+            unset https_proxy http_proxy all_proxy && echo 'unset clash complete'
+        ;;
+        help)
+            proxys h
+        ;;
+        *)
+            echo "We will show the proxy configs, If not other ouput ,there is no proxy"
+            export|grep proxy
+        ;;
+    esac
+}
