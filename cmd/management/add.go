@@ -10,16 +10,19 @@ import (
 )
 
 var AddCmdOpts struct {
-	FromFile   bool
-	SetEnable  bool
-	UpdateMode bool
-	Name       string
+	FromFile          bool
+	SetNameAsFileName bool
+	SetEnable         bool
+	UpdateMode        bool
+	Name              string
 }
 
 func init() {
 	AddCmd.Flags().BoolVarP(&AddCmdOpts.FromFile, "from-file", "f", false, "Add From File")
 	AddCmd.Flags().BoolVarP(&AddCmdOpts.SetEnable, "enable", "e", true, "Set snippet default as Enable")
 	AddCmd.Flags().BoolVarP(&AddCmdOpts.UpdateMode, "update", "u", false, "Update mode")
+	AddCmd.Flags().BoolVarP(&AddCmdOpts.SetNameAsFileName, "keep-file-name", "k", false, "Set Name as file Name")
+
 	AddCmd.Flags().StringVarP(&AddCmdOpts.Name, "name", "n", "",
 		"Overwrite Snippet Name (pair with from-file=false), If name is same, add command will update that content")
 	cmd.RootCmd.AddCommand(AddCmd)
@@ -36,7 +39,7 @@ var AddCmd = &cobra.Command{
 			// filename is the name
 			// content is file data
 			// Enable set as AddAsSetEnable
-			cmd_impel.AddFromFiles(args, AddCmdOpts.SetEnable)
+			cmd_impel.AddFromFiles(args, AddCmdOpts.SetEnable, AddCmdOpts.SetNameAsFileName)
 		} else {
 			// Add from Editor
 			// Name Ask name

@@ -4,20 +4,28 @@ import (
 	"fmt"
 	log "github.com/sirupsen/logrus"
 	"os"
+	"path/filepath"
 	"sss/core/defines"
 	"sss/utils/Ask"
 	"sss/utils/File"
 	"sss/utils/TextEditorCall"
+	"strings"
 )
 
-func AddFromFiles(files []string, enable bool) {
+func AddFromFiles(files []string, enable bool, keepFileName bool) {
 	for _, file := range files {
 		if !File.IsFile(file) {
 			log.Errorf("file %v not exists or is dir", file)
 			return
 		}
 		var sn defines.ShellSnippet
-		sn.Name = Ask.ForName(fmt.Sprintf("Input file %v, set snippet name as", file))
+		if keepFileName {
+			fileName := filepath.Base(file)
+			baseName := strings.TrimSuffix(fileName, filepath.Ext(fileName))
+			sn.Name = baseName
+		} else {
+			sn.Name = Ask.ForName(fmt.Sprintf("Input file %v, set snippet name as", file))
+		}
 		byteData, err := os.ReadFile(file)
 		if err != nil {
 			log.Errorf("Read File %v content error: %v", file, err)
