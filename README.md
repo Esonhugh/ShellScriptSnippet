@@ -6,6 +6,12 @@
 
 databased shell custom scripts, supports CRUD and sharing
 
+### 构建 Build
+
+```shell
+go build -o sss ./main/main.go
+```
+
 ### 基本界面 UI 
 
 ```
