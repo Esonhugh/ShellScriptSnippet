@@ -12,13 +12,13 @@ func InitRC() {
 		return
 	}
 	for _, v := range rs {
-		println("## SSS_CUSTOM_SNIPPET: " + v.Name)
-		println(v.Content)
+		fmt.Println("## SSS_CUSTOM_SNIPPET: " + v.Name)
+		fmt.Println(v.Content)
 	}
 }
 
 func PrintTarget(r defines.ShellSnippet) {
-	println("## SSS_CUSTOM_SNIPPET: " + r.Name)
-	println(fmt.Sprintf("## Status: %v", r.IsEnable))
-	println(r.Content)
+	fmt.Println("## SSS_CUSTOM_SNIPPET: " + r.Name)
+	fmt.Println(fmt.Sprintf("## Status: %v", r.IsEnable))
+	fmt.Println(r.Content)
 }

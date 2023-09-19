@@ -1,6 +1,7 @@
 package initrc
 
 import (
+	"fmt"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"os"
@@ -27,8 +28,15 @@ var InitrcCmd = &cobra.Command{
 			// NeverLoad Again
 			return
 		}
-		println("export SSS_LOADED=true;")
+		fmt.Println("export SSS_LOADED=true;")
 		cmd_impel.InitRC()
+		fp, _ := filepath.Abs(os.Args[0])
+		reload_func := fmt.Sprintf(`
+function SSS_RELOAD () {
+	source <(%v initrc --reload=true)
+}
+`, fp)
+		fmt.Println(reload_func)
 	},
 }
 
@@ -38,8 +46,8 @@ var InstallCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fp, _ := filepath.Abs(os.Args[0])
 		log.Infoln("using following command to add into zshrc:")
-		log.Infof(`	echo 'eval "$(%v initrc)"' >> ~/.zshrc `, fp)
+		log.Infof(`	echo 'source <(%v initrc)' >> ~/.zshrc `, fp)
 		log.Infoln("using following command to add into bashrc:")
-		log.Infof(`	echo 'eval "$(%v initrc)"' >> ~/.bashrc `, fp)
+		log.Infof(`	echo 'source <(%v initrc)' >> ~/.bashrc `, fp)
 	},
 }
