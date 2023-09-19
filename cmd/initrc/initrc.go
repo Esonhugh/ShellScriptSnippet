@@ -5,7 +5,6 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"os"
-	"path/filepath"
 	"sss/cmd"
 	"sss/core/cmd_impel"
 )
@@ -30,7 +29,7 @@ var InitrcCmd = &cobra.Command{
 		}
 		fmt.Println("export SSS_LOADED=true;")
 		cmd_impel.InitRC()
-		fp, _ := filepath.Abs(os.Args[0])
+		fp := getCurrentExePath()
 		reload_func := fmt.Sprintf(`
 function SSS_RELOAD () {
 	source <(%v initrc --reload=true)
@@ -44,10 +43,15 @@ var InstallCmd = &cobra.Command{
 	Use:   "install",
 	Short: "output how to use this cli in rc files",
 	Run: func(cmd *cobra.Command, args []string) {
-		fp, _ := filepath.Abs(os.Args[0])
+		fp := getCurrentExePath()
 		log.Infoln("using following command to add into zshrc:")
 		log.Infof(`	echo 'source <(%v initrc)' >> ~/.zshrc `, fp)
 		log.Infoln("using following command to add into bashrc:")
 		log.Infof(`	echo 'source <(%v initrc)' >> ~/.bashrc `, fp)
 	},
+}
+
+func getCurrentExePath() string {
+	ex, _ := os.Executable()
+	return ex
 }
