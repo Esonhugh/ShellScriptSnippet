@@ -3,6 +3,7 @@ package management
 import (
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+	"os"
 	"sss/cmd"
 	"sss/core/cmd_impel"
 	"sss/core/defines"
@@ -45,19 +46,38 @@ var AddCmd = &cobra.Command{
 			// Name Ask name
 			// Content form Editor result
 			// Enable set as AddAsSetEnable
+			var realname string = AddCmdOpts.Name
+			var realenable bool = AddCmdOpts.SetEnable
 			if AddCmdOpts.UpdateMode {
 				allrs, err := cmd_impel.GetAllSnippets()
 				if err != nil {
 					log.Errorf("Get all Snippets Error: %v", err)
 				}
-				res := Ask.ChoiceOneOfSlice(Ask.ConvertToChoiceAbleSlice(allrs)).(defines.ShellSnippet)
-				cmd_impel.AddFromEditor(res.Name, res.IsEnable)
-				return
+				if realname == "" {
+					res := Ask.ChoiceOneOfSlice(Ask.ConvertToChoiceAbleSlice(allrs)).(defines.ShellSnippet)
+					realname = res.Name
+					realenable = res.IsEnable
+				} else {
+					found := false
+					for _, rs := range allrs {
+						if rs.Name == AddCmdOpts.Name {
+							realname = rs.Name
+							realenable = rs.IsEnable
+							found = true
+							break
+						}
+					}
+					if !found {
+						log.Errorf("User input name %v not found in database", AddCmdOpts.Name)
+						os.Exit(-1)
+					}
+				}
+			} else {
+				if realname == "" {
+					realname = Ask.ForName("Input snippet name")
+				}
 			}
-			if AddCmdOpts.Name == "" {
-				AddCmdOpts.Name = Ask.ForName("Input snippet name")
-			}
-			cmd_impel.AddFromEditor(AddCmdOpts.Name, AddCmdOpts.SetEnable)
+			cmd_impel.AddFromEditor(realname, realenable)
 		}
 	},
 }
