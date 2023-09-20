@@ -1,0 +1,21 @@
+## SSS_CUSTOM_SNIPPET: which-function
+## Status: true
+function search-shell-functions () {
+    if [ -z "$1" ]; then
+        echo "Usage: search-shell-function <function-name-with-regex>"
+        return 1
+    fi
+    typeset -f |grep '() {'|grep $1 | cut -d '(' -f1
+}
+
+function list-shell-functions () {
+    typeset -f |grep '() {'| cut -d '(' -f1
+}
+
+function which-shell-functions () {
+    if [ -z "$1" ]; then
+        echo "Usage: which-shell-function <function-name>"
+        return 1
+    fi
+    which `typeset -f |grep '() {'|grep $1 | cut -d '(' -f1 `
+}
