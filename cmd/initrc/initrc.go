@@ -20,6 +20,15 @@ var InitrcCmd = &cobra.Command{
 	Use:   "initrc",
 	Short: "init rc is command to invoke the activated bashrc",
 	Run: func(cmd *cobra.Command, args []string) {
+		// Always Setting the SSS_RELOAD func
+		fp := getCurrentExePath()
+		reload_func := fmt.Sprintf(`
+function SSS_RELOAD () {
+	source <(%v initrc --reload=true)
+}
+`, fp)
+		fmt.Println(reload_func)
+
 		// if ssl_leaded is any and reload is set, reload
 		// if sss_loaded not set but reload not set, load
 		// if ssl_loaded set but reload not set, no load
@@ -29,13 +38,6 @@ var InitrcCmd = &cobra.Command{
 		}
 		fmt.Println("export SSS_LOADED=true;")
 		cmd_impel.InitRC()
-		fp := getCurrentExePath()
-		reload_func := fmt.Sprintf(`
-function SSS_RELOAD () {
-	source <(%v initrc --reload=true)
-}
-`, fp)
-		fmt.Println(reload_func)
 	},
 }
 
