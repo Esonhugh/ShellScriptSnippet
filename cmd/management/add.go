@@ -31,7 +31,7 @@ func init() {
 var AddCmd = &cobra.Command{
 	Use:     "add",
 	Aliases: []string{"a"},
-	Short:   "Add a shell script snippet",
+	Short:   "Add/Update a shell script snippet",
 	Run: func(cmd *cobra.Command, args []string) {
 		if AddCmdOpts.FromFile {
 			// Add from file

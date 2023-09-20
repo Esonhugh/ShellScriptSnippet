@@ -38,6 +38,8 @@ var ShareCmd = &cobra.Command{
 		}
 		if ShareCmdOpts.DryRun {
 			cmd_impel.PrintTarget(target)
+		} else {
+			// cmd_impel.ShareTarget(platform, target)
 		}
 	},
 }
