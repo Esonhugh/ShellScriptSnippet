@@ -7,8 +7,7 @@ on:
 env:
   GO_VERSION: 1.21
 
-permissions:
-  repository-projects: write
+permissions: write-all
 
 jobs:
   goreleaser:
