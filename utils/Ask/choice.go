@@ -2,9 +2,9 @@ package Ask
 
 import (
 	"github.com/AlecAivazis/survey/v2"
+	"github.com/Esonhugh/ShellScriptSnippet/utils/Compare"
 	log "github.com/sirupsen/logrus"
 	"os"
-	"sss/utils/Compare"
 )
 
 type ChoiceAble interface {

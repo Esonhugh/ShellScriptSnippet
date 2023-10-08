@@ -1,9 +1,9 @@
 package management
 
 import (
+	"github.com/Esonhugh/ShellScriptSnippet/cmd"
+	"github.com/Esonhugh/ShellScriptSnippet/core/cmd_impel"
 	"github.com/spf13/cobra"
-	"sss/cmd"
-	"sss/core/cmd_impel"
 )
 
 func init() {

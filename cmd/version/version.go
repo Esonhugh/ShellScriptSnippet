@@ -1,9 +1,9 @@
 package version
 
 import (
+	"github.com/Esonhugh/ShellScriptSnippet/cmd"
+	"github.com/Esonhugh/ShellScriptSnippet/utils/Print"
 	"github.com/spf13/cobra"
-	"sss/cmd"
-	"sss/utils/Print"
 )
 
 var version = "0.1"

@@ -3,12 +3,12 @@ package cmd_impel
 import (
 	"errors"
 	"github.com/AlecAivazis/survey/v2"
+	"github.com/Esonhugh/ShellScriptSnippet/core/defines"
+	"github.com/Esonhugh/ShellScriptSnippet/utils/Ask"
+	"github.com/Esonhugh/ShellScriptSnippet/utils/Database"
 	log "github.com/sirupsen/logrus"
 	"gorm.io/gorm/logger"
 	"os"
-	"sss/core/defines"
-	"sss/utils/Ask"
-	"sss/utils/Database"
 )
 
 func InitDB() error {

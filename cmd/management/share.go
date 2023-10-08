@@ -1,12 +1,12 @@
 package management
 
 import (
+	"github.com/Esonhugh/ShellScriptSnippet/cmd"
+	"github.com/Esonhugh/ShellScriptSnippet/core/cmd_impel"
+	"github.com/Esonhugh/ShellScriptSnippet/core/defines"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"os"
-	"sss/cmd"
-	"sss/core/cmd_impel"
-	"sss/core/defines"
 )
 
 func init() {

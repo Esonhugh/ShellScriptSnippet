@@ -2,11 +2,11 @@ package initrc
 
 import (
 	"fmt"
+	"github.com/Esonhugh/ShellScriptSnippet/cmd"
+	"github.com/Esonhugh/ShellScriptSnippet/core/cmd_impel"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"os"
-	"sss/cmd"
-	"sss/core/cmd_impel"
 )
 
 var reload bool

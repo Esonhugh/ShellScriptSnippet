@@ -1,4 +1,4 @@
-module sss
+module github.com/Esonhugh/ShellScriptSnippet
 
 go 1.19
 

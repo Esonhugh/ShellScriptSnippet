@@ -2,7 +2,7 @@ package cmd_impel
 
 import (
 	"fmt"
-	"sss/core/defines"
+	"github.com/Esonhugh/ShellScriptSnippet/core/defines"
 )
 
 func InitRC() {

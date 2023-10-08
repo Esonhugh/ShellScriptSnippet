@@ -1,13 +1,13 @@
 package management
 
 import (
+	"github.com/Esonhugh/ShellScriptSnippet/cmd"
+	"github.com/Esonhugh/ShellScriptSnippet/core/cmd_impel"
+	"github.com/Esonhugh/ShellScriptSnippet/core/defines"
+	"github.com/Esonhugh/ShellScriptSnippet/utils/Ask"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"os"
-	"sss/cmd"
-	"sss/core/cmd_impel"
-	"sss/core/defines"
-	"sss/utils/Ask"
 )
 
 var AddCmdOpts struct {

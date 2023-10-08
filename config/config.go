@@ -1,8 +1,8 @@
 package config
 
 import (
+	"github.com/Esonhugh/ShellScriptSnippet/utils/Error"
 	"github.com/spf13/viper"
-	"sss/utils/Error"
 )
 
 // Config struct is a wrapper of viper

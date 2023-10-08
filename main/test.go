@@ -4,10 +4,10 @@ package main
 // File is for the test that can't run in goland test
 
 import (
+	"github.com/Esonhugh/ShellScriptSnippet/utils/Ask"
+	"github.com/Esonhugh/ShellScriptSnippet/utils/TextEditorCall"
+	"github.com/Esonhugh/ShellScriptSnippet/utils/log"
 	log2 "github.com/sirupsen/logrus"
-	"sss/utils/Ask"
-	"sss/utils/TextEditorCall"
-	"sss/utils/log"
 )
 
 func main() {

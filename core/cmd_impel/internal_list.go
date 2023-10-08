@@ -2,9 +2,9 @@ package cmd_impel
 
 import (
 	"fmt"
+	"github.com/Esonhugh/ShellScriptSnippet/utils/Print"
 	log "github.com/sirupsen/logrus"
 	"os"
-	"sss/utils/Print"
 )
 
 func ListAndPrint() {

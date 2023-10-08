@@ -1,12 +1,12 @@
 package Database
 
 import (
+	"github.com/Esonhugh/ShellScriptSnippet/utils/File"
 	"github.com/glebarez/sqlite"
 	log "github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 	"os"
 	"path/filepath"
-	"sss/utils/File"
 )
 
 const (

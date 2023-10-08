@@ -1,9 +1,9 @@
 package cmd_impel
 
 import (
+	"github.com/Esonhugh/ShellScriptSnippet/core/defines"
+	"github.com/Esonhugh/ShellScriptSnippet/utils/Database"
 	log "github.com/sirupsen/logrus"
-	"sss/core/defines"
-	"sss/utils/Database"
 )
 
 func DeleteSnippetsFromNames(names []string) {

@@ -1,11 +1,11 @@
 package cmd
 
 import (
+	"github.com/Esonhugh/ShellScriptSnippet/core/cmd_impel"
+	"github.com/Esonhugh/ShellScriptSnippet/utils/log"
 	cc "github.com/ivanpirog/coloredcobra"
 	"github.com/spf13/cobra"
 	"os"
-	"sss/core/cmd_impel"
-	"sss/utils/log"
 )
 
 var RootCmd = &cobra.Command{

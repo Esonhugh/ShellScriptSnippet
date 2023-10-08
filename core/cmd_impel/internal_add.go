@@ -2,13 +2,13 @@ package cmd_impel
 
 import (
 	"fmt"
+	"github.com/Esonhugh/ShellScriptSnippet/core/defines"
+	"github.com/Esonhugh/ShellScriptSnippet/utils/Ask"
+	"github.com/Esonhugh/ShellScriptSnippet/utils/File"
+	"github.com/Esonhugh/ShellScriptSnippet/utils/TextEditorCall"
 	log "github.com/sirupsen/logrus"
 	"os"
 	"path/filepath"
-	"sss/core/defines"
-	"sss/utils/Ask"
-	"sss/utils/File"
-	"sss/utils/TextEditorCall"
 	"strings"
 )
 
