@@ -13,6 +13,8 @@ const (
 	DBLocSuffix = ".config/sss/conf.db"
 )
 
+var DBLocation = filepath.Join(os.Getenv("HOME"), DBLocSuffix)
+
 var DB *gorm.DB
 
 func Open() (*gorm.DB, error) {
@@ -20,7 +22,7 @@ func Open() (*gorm.DB, error) {
 	if home == "" {
 		home = os.TempDir()
 	}
-	DBLocation := filepath.Join(home, DBLocSuffix)
+	DBLocation = filepath.Join(home, DBLocSuffix)
 	if !File.PathExists(DBLocation) {
 		log.Debugf("DBlocation %v is not exists", DBLocation)
 		err := os.MkdirAll(filepath.Dir(DBLocation), os.ModeDir|0755)
@@ -32,4 +34,15 @@ func Open() (*gorm.DB, error) {
 		log.Debugf("Create DB file success")
 	}
 	return gorm.Open(sqlite.Open(DBLocation), &gorm.Config{})
+}
+
+func Close() {
+	sqlDB, err := DB.DB()
+	if err != nil {
+		log.Errorf("Close DB error: %v", err)
+	}
+	err = sqlDB.Close()
+	if err != nil {
+		log.Errorf("Close DB error: %v", err)
+	}
 }
