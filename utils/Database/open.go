@@ -1,12 +1,14 @@
 package Database
 
 import (
+	"os"
+	"path/filepath"
+
 	"github.com/Esonhugh/ShellScriptSnippet/utils/File"
 	"github.com/glebarez/sqlite"
 	log "github.com/sirupsen/logrus"
 	"gorm.io/gorm"
-	"os"
-	"path/filepath"
+	"gorm.io/gorm/logger"
 )
 
 const (
@@ -33,7 +35,9 @@ func Open() (*gorm.DB, error) {
 		f.Close()
 		log.Debugf("Create DB file success")
 	}
-	return gorm.Open(sqlite.Open(DBLocation), &gorm.Config{})
+	return gorm.Open(sqlite.Open(DBLocation), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Silent),
+	})
 }
 
 func Close() {

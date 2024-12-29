@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	log.GlobalLogLevel = "debug"
+	log.GlobalLogLevel = 2
 	log.Init()
 	// main3()
 	main1_5()

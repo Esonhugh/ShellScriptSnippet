@@ -1,11 +1,12 @@
 package cmd
 
 import (
+	"os"
+
 	"github.com/Esonhugh/ShellScriptSnippet/core/cmd_impel"
 	"github.com/Esonhugh/ShellScriptSnippet/utils/log"
 	cc "github.com/ivanpirog/coloredcobra"
 	"github.com/spf13/cobra"
-	"os"
 )
 
 var RootCmd = &cobra.Command{
@@ -24,7 +25,7 @@ var RootCmd = &cobra.Command{
 }
 
 func init() {
-	RootCmd.PersistentFlags().StringVar(&log.GlobalLogLevel, "verbose", "info", "设置日志等级 (Set log level) [trace|debug|info|warn|error|fatal|panic]")
+	RootCmd.PersistentFlags().CountVarP(&log.GlobalLogLevel, "verbose", "v", "设置日志等级 (Set log level) [trace|debug|info]")
 	// RootCmd.CompletionOptions.DisableDefaultCmd = true
 }
 

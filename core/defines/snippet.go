@@ -5,16 +5,6 @@ import (
 	"strings"
 )
 
-type ShellType string
-
-const (
-	Powershell = ShellType("PowerShell")
-	Zsh        = ShellType("Zsh")
-	Fish       = ShellType("Fish")
-	Bash       = ShellType("Bash")
-	Other      = ShellType("Other")
-)
-
 // One ShellSnippet struct
 type ShellSnippet struct {
 	// Name of ShellSnippet

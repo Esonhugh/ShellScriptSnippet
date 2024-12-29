@@ -1,21 +1,18 @@
 package log
 
 import (
+	"os"
+
 	log "github.com/sirupsen/logrus"
 	prefixed "github.com/x-cray/logrus-prefixed-formatter"
-	"os"
 )
 
 var GlobalLogLevel = LogLevelInfo
 
 const (
-	LogLevelTrace = "trace"
-	LogLevelDebug = "debug"
-	LogLevelInfo  = "info"
-	LogLevelWarn  = "warn"
-	LogLevelError = "error"
-	LogLevelFatal = "fatal"
-	LogLevelPanic = "panic"
+	LogLevelTrace = 2
+	LogLevelDebug = 1
+	LogLevelInfo  = 0
 )
 
 // Init func is a function to init logrus with specific log level
@@ -26,7 +23,7 @@ func Init() {
 }
 
 // logLevel search level strings return correct Level
-func logLevel(level string) log.Level {
+func logLevel(level int) log.Level {
 	switch level {
 	case LogLevelTrace:
 		return log.TraceLevel
@@ -34,14 +31,6 @@ func logLevel(level string) log.Level {
 		return log.DebugLevel
 	case LogLevelInfo:
 		return log.InfoLevel
-	case LogLevelWarn:
-		return log.WarnLevel
-	case LogLevelError:
-		return log.ErrorLevel
-	case LogLevelFatal:
-		return log.FatalLevel
-	case LogLevelPanic:
-		return log.PanicLevel
 	default:
 		return log.InfoLevel
 	}
