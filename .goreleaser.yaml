@@ -3,13 +3,14 @@ project_name: sss
 before:
   hooks:
     - go mod tidy
-    - go generate ./...
 builds:
-  - main: ./main/main.go
-    env:
+  - env:
       - CGO_ENABLED=0
+    ldflags:
+      - -s -w
     goos:
       - darwin
+      - windows
       - linux
     goarch:
       - "386"
@@ -17,9 +18,19 @@ builds:
       - arm64
 archives:
   - name_template: "{{ .ProjectName }}_{{ .Tag }}_{{ .Os }}_{{ .Arch }}"
+    files:
+      - README.md
     format_overrides:
       - goos: windows
         format: zip
+
+upx:
+  - enabled: true
+    compress: best
+    brute: true
+    lzma: true
+
+
 checksum:
   name_template: "checksums.txt"
 snapshot:
