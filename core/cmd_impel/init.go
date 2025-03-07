@@ -19,7 +19,6 @@ func InitDB() error {
 	}
 	err = errors.Join(
 		db.AutoMigrate(&defines.ShellSnippet{}),
-		db.AutoMigrate(&defines.Config{}),
 	)
 	if err != nil {
 		log.Errorf("DB AutoMigrate Failured %v", err)

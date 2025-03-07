@@ -3,16 +3,12 @@ package initrc
 import (
 	"fmt"
 	"github.com/Esonhugh/ShellScriptSnippet/cmd"
-	"github.com/Esonhugh/ShellScriptSnippet/core/cmd_impel"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"os"
 )
 
-var reload bool
-
 func init() {
-	InitrcCmd.Flags().BoolVarP(&reload, "reload", "r", false, "allow reload even the load flag is set")
 	cmd.RootCmd.AddCommand(InitrcCmd, InstallCmd)
 }
 
@@ -22,22 +18,19 @@ var InitrcCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		// Always Setting the SSS_RELOAD func
 		fp := getCurrentExePath()
+		// make SSS_RELOAD function definition as a target to determine whether the script is loaded
+		// bcs the environment variable is not reliable, it will pass to the subprocess shell
+		// so if launch a new shell, the defined environment variable will be same but functions and alias will be lost
 		reload_func := fmt.Sprintf(`
+declare -f SSS_RELOAD > /dev/null && export SSS_LOADED=true || export SSS_LOADED=false
 function SSS_RELOAD () {
-	source <(%v initrc --reload=true)
+	source <(%v load --reload=true)
 }
-`, fp)
+if [[ "$SSS_LOADED" == "false" ]]; then
+	source <(%v load)
+fi
+`, fp, fp)
 		fmt.Println(reload_func)
-
-		// if ssl_leaded is any and reload is set, reload
-		// if sss_loaded not set but reload not set, load
-		// if ssl_loaded set but reload not set, no load
-		if os.Getenv("SSS_LOADED") == "true" && !reload {
-			// NeverLoad Again
-			return
-		}
-		fmt.Println("export SSS_LOADED=true;")
-		cmd_impel.InitRC()
 	},
 }
 
